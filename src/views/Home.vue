@@ -12,15 +12,15 @@
 
       <div>
             <h4>People in the chat:</h4>
-            <div v-for="message in users" :key="message.username">
+            <div v-for="message in nouser" :key="message.username">
             <!--sending param from tag route-link to a other page-->  
             <p><router-link :to="{ name: 'About', params: {nameprivate: message.username} }"
             target="_blank">Chat with {{message.username}} :D</router-link> </p>
             
             </div>
-            <ul>
-                <!-- <li>{{unicos[0]}}</li> -->
-            </ul>
+            <!-- <ul>
+               <li>{{username}}</li> 
+            </ul> -->
       </div>
 
       <div>
@@ -60,11 +60,11 @@ export default {
       e.preventDefault();
       if(e.target.value){
         
-        const message = {
+        const message = { //VAR WHO WILL PUSH THE DATA TO TABLE FIREBASE
           username: this.username,
           text: e.target.value
         }
-        database.ref('messages').push(message);
+        database.ref('messages').push(message); // INTERNAL PUSH TO TABLE DATABASE
         e.target.value = ''
       }
     }
@@ -86,24 +86,23 @@ export default {
       vm.messages = messages;
     })
     // deleting the same email as the logged user
-    const itemsRefi = database.ref('messages');
+    const itemsRefi = database.ref('users');
     itemsRefi.on('value', snapshot => {
       let data = snapshot.val();
       let messages = [];
       Object.keys(data).forEach(key => {
       // Making "if" to ask wich username is wich username
-       if (this.username != data[key].username)
+       if (this.username != data[key].email)
          { 
           messages.push({
-            username: data[key].username,
+            username: data[key].email,
           });
         }
       });
       vm.nouser = messages;
-
-      
+      console.log(nouser)
+      //vm.users = Object.values(vm.nouser.reduce((prev,next)=>Object.assign(prev,{[next.username]:next}),{})); //Deleting from the array the equasl parameters
     })
-    vm.users = Object.values(vm.nouser.reduce((prev,next)=>Object.assign(prev,{[next.username]:next}),{})); //Deleting from the array the equasl parameters
   }
 }
 </script>

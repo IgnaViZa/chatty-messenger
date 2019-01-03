@@ -9,8 +9,8 @@
 </template>
     
 <script>
-import firebase from 'firebase';
-
+//import firebase from 'firebase';
+import {database, auth} from '@/fire.js'
 export default {
     name: 'login',
     data(){
@@ -21,7 +21,7 @@ export default {
     },
     methods: {
         login: function() {
-            firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
+            auth.signInWithEmailAndPassword(this.email, this.password).then(
                 (user) => {
                     console.log('Well done son ! You are now connected with me :v')
                     this.$router.replace('Home')

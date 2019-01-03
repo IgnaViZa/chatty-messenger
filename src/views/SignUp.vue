@@ -9,8 +9,8 @@
 </template>
 
 <script>
-    import firebase from 'firebase';
-
+    //import firebase from 'firebase';
+    import {database, auth} from '@/fire.js'
 export default {
     name:'signUp',
     data(){
@@ -21,9 +21,14 @@ export default {
     },
     methods:{
         signUp: function() {
-            firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
+            auth.createUserWithEmailAndPassword(this.email, this.password).then(
                 (user) => {
                     alert('your account has been created my son!!')
+                    const logged = { //VAR WHO WILL PUSH THE DATA TO TABLE FIREBASE
+                            email: this.email,
+                            password: this.password
+                        }
+                        database.ref('users').push(logged)
                     this.$router.replace('home')
                 },
                 (err) => {
