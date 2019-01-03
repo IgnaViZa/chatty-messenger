@@ -24,11 +24,11 @@ export default {
             auth.createUserWithEmailAndPassword(this.email, this.password).then(
                 (user) => {
                     alert('your account has been created my son!!')
-                    const logged = { //VAR WHO WILL PUSH THE DATA TO TABLE FIREBASE
+                    const logged = { //create var to insert into new table users
                             email: this.email,
                             password: this.password
                         }
-                        database.ref('users').push(logged)
+                        database.ref('users').push(logged)//insertion in new table users
                     this.$router.replace('home')
                 },
                 (err) => {

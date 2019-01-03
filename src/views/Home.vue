@@ -52,7 +52,8 @@ export default {
   data() {
     return {
       username: '',
-      messages: []
+      messages: [],
+      ide: null
     }
   },
   methods: {
