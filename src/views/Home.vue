@@ -53,7 +53,8 @@ export default {
     return {
       username: '',
       messages: [],
-      ide: null
+      ide: null,
+      nouser: null
     }
   },
   methods: {
@@ -100,7 +101,7 @@ export default {
           });
         }
       });
-      vm.nouser = messages;
+      this.nouser = messages;
       console.log(nouser)
       //vm.users = Object.values(vm.nouser.reduce((prev,next)=>Object.assign(prev,{[next.username]:next}),{})); //Deleting from the array the equasl parameters
     })
